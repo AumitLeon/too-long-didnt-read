@@ -1,0 +1,52 @@
+body {
+  width: 300px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  font-size: 14px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+#summarizeButton {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 14px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#summarizeButton:hover {
+  background-color: #3a8d40;
+}
+
+#result {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #333;
+  white-space: pre-wrap;
+}
+
+#apiKey {
+  margin-bottom: 20px;
+}
