@@ -33,7 +33,7 @@ document.getElementById("summarizeButton").addEventListener("click", async () =>
 async function getSummary(apiKey, text) {
     // Use the provided API key in the callGPT4 function
     try {
-        const summary = await callGPT4(apiKey, text);
+        const summary = await callOpenAI(apiKey, text);
         return summary;
     } catch (error) {
         console.error("Error getting summary:", error);
@@ -41,19 +41,22 @@ async function getSummary(apiKey, text) {
     }
 }
 
-async function callGPT4(apiKey, text) {
-    const prompt = `Please summarize the following text: ${text}`;
+async function callOpenAI(apiKey, text) {
+    const messages = [
+        { role: "system", content: "You are a helpful assistant that summarizes text." },
+        { role: "user", content: `Please summarize the following text: ${text}` }
+    ];
 
     try {
-        const response = await fetch("https://api.openai.com/v1/completions", {
+        const response = await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${apiKey}`,
             },
             body: JSON.stringify({
-                model: "text-davinci-003",
-                prompt: prompt,
+                model: "gpt-3.5-turbo",
+                messages: messages,
                 max_tokens: 250, // Adjust the number of tokens as needed
                 n: 1,
                 stop: null,
@@ -62,9 +65,9 @@ async function callGPT4(apiKey, text) {
         });
 
         const data = await response.json();
-
+        console.log(data)
         if (data.choices && data.choices.length > 0) {
-            const summary = data.choices[0].text.trim();
+            const summary = data.choices[0].message.content.trim();
             return summary;
         } else {
             return "No summary generated. Please try again.";
